@@ -1,13 +1,9 @@
-// ============================================
-// Authentication State Slice
-// Manages user session and token state
-// ============================================
+
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AuthState, AuthResponse, User } from '../../types';
 import { AUTH_CONFIG } from '../../config/constants';
 
-// Helper to load state from localStorage
 const loadAuthState = (): Partial<AuthState> => {
   try {
     const token = localStorage.getItem(AUTH_CONFIG.TOKEN_KEY);
@@ -19,9 +15,7 @@ const loadAuthState = (): Partial<AuthState> => {
       const user = JSON.parse(userStr) as User;
       const tokenExpiresAt = expiresAt ? parseInt(expiresAt, 10) : null;
       
-      // Check if token is expired
       if (tokenExpiresAt && Date.now() > tokenExpiresAt) {
-        // Token expired, clear storage
         localStorage.removeItem(AUTH_CONFIG.TOKEN_KEY);
         localStorage.removeItem(AUTH_CONFIG.REFRESH_TOKEN_KEY);
         localStorage.removeItem('itsd_user');
@@ -43,7 +37,6 @@ const loadAuthState = (): Partial<AuthState> => {
   return {};
 };
 
-// Initial state
 const initialState: AuthState = {
   user: null,
   token: null,
@@ -71,7 +64,6 @@ const authSlice = createSlice({
       state.error = null;
       state.tokenExpiresAt = tokenExpiresAt;
       
-      // Persist to localStorage
       localStorage.setItem(AUTH_CONFIG.TOKEN_KEY, token);
       localStorage.setItem(AUTH_CONFIG.REFRESH_TOKEN_KEY, refreshToken);
       localStorage.setItem('itsd_user', JSON.stringify(user));
@@ -87,7 +79,6 @@ const authSlice = createSlice({
       state.error = null;
       state.tokenExpiresAt = null;
       
-      // Clear localStorage
       localStorage.removeItem(AUTH_CONFIG.TOKEN_KEY);
       localStorage.removeItem(AUTH_CONFIG.REFRESH_TOKEN_KEY);
       localStorage.removeItem('itsd_user');
@@ -123,7 +114,6 @@ const authSlice = createSlice({
   },
 });
 
-// Export actions
 export const {
   setCredentials,
   logout,
@@ -133,7 +123,6 @@ export const {
   refreshTokenSuccess,
 } = authSlice.actions;
 
-// Selectors
 export const selectCurrentUser = (state: { auth: AuthState }) => state.auth.user;
 export const selectIsAuthenticated = (state: { auth: AuthState }) => state.auth.isAuthenticated;
 export const selectAuthToken = (state: { auth: AuthState }) => state.auth.token;

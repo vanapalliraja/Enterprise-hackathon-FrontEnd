@@ -1,7 +1,4 @@
-// ============================================
-// RTK Query API Slice
-// Centralized API configuration with mock data
-// ============================================
+
 
 import { createApi, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
 import type { RootState } from '../store';
@@ -9,7 +6,6 @@ import { API_CONFIG } from '../../config/constants';
 import { AuthResponse, LoginCredentials, User, Ticket, PaginatedResponse, FilterParams, SortParams, PaginationParams, TicketFormData, TicketHistory, UserRole, TicketStatus, TicketPriority, TicketCategory, KPIData, ChartDataPoint, DashboardConfig, DashboardWidget } from '../../types';
 import { logout, setCredentials } from '../slices/authSlice';
 
-// Mock data generators
 const generateMockUsers = (): User[] => {
   const departments = ['IT', 'HR', 'Finance', 'Operations', 'Engineering', 'Marketing'];
   const roles = [UserRole.ADMIN, UserRole.MANAGER, UserRole.REVIEWER, UserRole.VIEWER];
@@ -112,7 +108,6 @@ const generateMockTickets = (count: number = 10000): Ticket[] => {
   });
 };
 
-// Cache mock data
 let mockTickets: Ticket[] | null = null;
 const getMockTickets = () => {
   if (!mockTickets) {
@@ -121,7 +116,6 @@ const getMockTickets = () => {
   return mockTickets;
 };
 
-// Base query with auth token
 const baseQuery = fetchBaseQuery({
   baseUrl: API_CONFIG.BASE_URL,
   prepareHeaders: (headers, { getState }) => {
@@ -133,27 +127,25 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-// Base query with reauth logic
 const baseQueryWithReauth = async (args: any, api: any, extraOptions: any) => {
-  // Since we're using mock data, simulate API behavior
+  
   const endpoint = typeof args === 'string' ? args : args.url;
   
-  // Simulate network delay
   await new Promise(resolve => setTimeout(resolve, 200 + Math.random() * 300));
   
   return { data: null };
 };
 
-// Create the API slice
+
 export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: baseQueryWithReauth,
   tagTypes: ['Ticket', 'User', 'Dashboard'],
   endpoints: (builder) => ({
-    // Authentication endpoints
+
     login: builder.mutation<AuthResponse, LoginCredentials>({
       queryFn: async (credentials) => {
-        // Simulate API delay
+
         await new Promise(resolve => setTimeout(resolve, 500));
         
         const mockUsers = generateMockUsers();
@@ -186,7 +178,6 @@ export const apiSlice = createApi({
       },
     }),
     
-    // Ticket endpoints
     getTickets: builder.query<
       PaginatedResponse<Ticket>,
       { pagination: PaginationParams; sort?: SortParams; filters?: FilterParams }
@@ -196,7 +187,6 @@ export const apiSlice = createApi({
         
         let tickets = [...getMockTickets()];
         
-        // Apply filters
         if (filters) {
           if (filters.status?.length) {
             tickets = tickets.filter(t => filters.status!.includes(t.status));
@@ -216,7 +206,6 @@ export const apiSlice = createApi({
           }
         }
         
-        // Apply sorting
         if (sort) {
           tickets.sort((a, b) => {
             const aVal = a[sort.field as keyof Ticket];
@@ -227,8 +216,7 @@ export const apiSlice = createApi({
             return sort.direction === 'asc' ? comparison : -comparison;
           });
         }
-        
-        // Apply pagination
+      
         const start = (pagination.page - 1) * pagination.pageSize;
         const paginatedTickets = tickets.slice(start, start + pagination.pageSize);
         
@@ -359,7 +347,6 @@ export const apiSlice = createApi({
       },
     }),
     
-    // User endpoints
     getUsers: builder.query<PaginatedResponse<User>, PaginationParams>({
       queryFn: async (pagination) => {
         await new Promise(resolve => setTimeout(resolve, 300));
@@ -380,7 +367,6 @@ export const apiSlice = createApi({
       providesTags: ['User'],
     }),
     
-    // Dashboard endpoints
     getDashboardKPIs: builder.query<KPIData[], UserRole>({
       queryFn: async (role) => {
         await new Promise(resolve => setTimeout(resolve, 200));
@@ -424,7 +410,6 @@ export const apiSlice = createApi({
           value: tickets.filter(t => t.priority === priority).length,
         }));
         
-        // Generate trend data for last 7 days
         const ticketsTrend = Array.from({ length: 7 }, (_, i) => {
           const date = new Date();
           date.setDate(date.getDate() - (6 - i));
@@ -443,7 +428,6 @@ export const apiSlice = createApi({
       queryFn: async (role) => {
         await new Promise(resolve => setTimeout(resolve, 150));
         
-        // Dynamic widget configuration based on role
         const baseWidgets: DashboardWidget[] = [
           { id: 'kpi-1', type: 'kpi', title: 'Key Metrics', dataSource: 'kpis', config: {}, position: { x: 0, y: 0, w: 12, h: 1 } },
           { id: 'chart-1', type: 'chart', title: 'Tickets by Status', dataSource: 'ticketsByStatus', config: { chartType: 'pie' }, position: { x: 0, y: 1, w: 6, h: 2 } },
@@ -468,7 +452,6 @@ export const apiSlice = createApi({
   }),
 });
 
-// Export hooks for usage in components
 export const {
   useLoginMutation,
   useLogoutMutation,

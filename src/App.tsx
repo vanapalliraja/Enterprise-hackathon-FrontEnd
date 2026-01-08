@@ -10,7 +10,6 @@ import DashboardPage from './pages/DashboardPage';
 import TicketsPage from './pages/TicketsPage';
 import MainLayout from './components/layout/MainLayout';
 
-// Protected Route wrapper
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
   if (!isAuthenticated) {
@@ -19,7 +18,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   return <>{children}</>;
 };
 
-// App Routes
+
 const AppRoutes = () => {
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
 

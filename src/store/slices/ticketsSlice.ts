@@ -1,17 +1,14 @@
-// ============================================
-// Tickets State Slice
-// Local state for ticket-related UI
-// ============================================
+
 
 import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
 import { FilterParams, SortParams, Ticket, TicketStatus, TicketPriority, TicketCategory } from '../../types';
 import { PAGINATION_CONFIG } from '../../config/constants';
 
 interface TicketsState {
-  // Normalized entities
+
   selectedTicketId: string | null;
   
-  // Table state
+
   pagination: {
     page: number;
     pageSize: number;
@@ -19,10 +16,9 @@ interface TicketsState {
   sort: SortParams;
   filters: FilterParams;
   
-  // Selection state
+
   selectedIds: string[];
   
-  // UI state
   isCreating: boolean;
   isEditing: boolean;
   filterPanelOpen: boolean;
@@ -59,12 +55,12 @@ const ticketsSlice = createSlice({
     
     setPageSize: (state, action: PayloadAction<number>) => {
       state.pagination.pageSize = action.payload;
-      state.pagination.page = 1; // Reset to first page
+      state.pagination.page = 1; 
     },
     
     setSort: (state, action: PayloadAction<SortParams>) => {
       state.sort = action.payload;
-      state.pagination.page = 1; // Reset to first page
+      state.pagination.page = 1; 
     },
     
     toggleSortDirection: (state) => {
@@ -73,7 +69,7 @@ const ticketsSlice = createSlice({
     
     setFilters: (state, action: PayloadAction<FilterParams>) => {
       state.filters = action.payload;
-      state.pagination.page = 1; // Reset to first page
+      state.pagination.page = 1; 
     },
     
     updateFilter: (state, action: PayloadAction<Partial<FilterParams>>) => {
@@ -167,7 +163,7 @@ export const {
   resetState,
 } = ticketsSlice.actions;
 
-// Base selectors
+
 export const selectTicketsState = (state: { tickets: TicketsState }) => state.tickets;
 export const selectPagination = (state: { tickets: TicketsState }) => state.tickets.pagination;
 export const selectSort = (state: { tickets: TicketsState }) => state.tickets.sort;
@@ -178,7 +174,7 @@ export const selectIsCreating = (state: { tickets: TicketsState }) => state.tick
 export const selectIsEditing = (state: { tickets: TicketsState }) => state.tickets.isEditing;
 export const selectFilterPanelOpen = (state: { tickets: TicketsState }) => state.tickets.filterPanelOpen;
 
-// Memoized selectors
+
 export const selectActiveFiltersCount = createSelector(
   [selectFilters],
   (filters) => {

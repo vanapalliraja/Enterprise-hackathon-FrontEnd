@@ -1,7 +1,4 @@
-// ============================================
-// UI State Slice
-// Manages application UI state
-// ============================================
+
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { UIState, Notification } from '../../types';
@@ -43,7 +40,7 @@ const uiSlice = createSlice({
       };
       state.notifications.unshift(notification);
       
-      // Keep only last 50 notifications
+    
       if (state.notifications.length > 50) {
         state.notifications = state.notifications.slice(0, 50);
       }
@@ -82,7 +79,6 @@ export const {
   clearNotifications,
 } = uiSlice.actions;
 
-// Selectors
 export const selectSidebarOpen = (state: { ui: UIState }) => state.ui.sidebarOpen;
 export const selectTheme = (state: { ui: UIState }) => state.ui.theme;
 export const selectNotifications = (state: { ui: UIState }) => state.ui.notifications;

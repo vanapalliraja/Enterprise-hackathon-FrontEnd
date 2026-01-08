@@ -44,7 +44,7 @@ const DashboardPage = () => {
 
   return (
     <Box>
-      {/* Header */}
+   
       <Box mb={4}>
         <Typography variant="h4" fontWeight={700}>
           Dashboard
@@ -54,7 +54,6 @@ const DashboardPage = () => {
         </Typography>
       </Box>
 
-      {/* KPI Cards */}
       <Grid container spacing={3} sx={{ mb: 4 }}>
         {kpisLoading
           ? Array.from({ length: 4 }).map((_, i) => (
@@ -117,9 +116,9 @@ const DashboardPage = () => {
             ))}
       </Grid>
 
-      {/* Charts */}
+  
       <Grid container spacing={3}>
-        {/* Tickets by Status */}
+
         <Grid item xs={12} md={6}>
           <Card sx={{ height: 350, overflow: 'hidden' }}>
             <CardContent>
@@ -165,8 +164,6 @@ const DashboardPage = () => {
             </CardContent>
           </Card>
         </Grid>
-
-        {/* Tickets by Priority */}
         <Grid item xs={12} md={6}>
           <Card sx={{ height: 350, overflow: 'hidden' }}>
             <CardContent>
@@ -204,8 +201,6 @@ const DashboardPage = () => {
             </CardContent>
           </Card>
         </Grid>
-
-        {/* Weekly Trend */}
         <Grid item xs={12}>
           <Card sx={{ height: 350, overflow: 'hidden' }}>
             <CardContent>

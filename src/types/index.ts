@@ -1,8 +1,4 @@
-// ============================================
-// Enterprise IT Service Desk - Type Definitions
-// ============================================
 
-// User Roles - Strict enum for type safety
 export enum UserRole {
   ADMIN = 'admin',
   MANAGER = 'manager',
@@ -10,7 +6,6 @@ export enum UserRole {
   VIEWER = 'viewer',
 }
 
-// Role hierarchy for permission checks
 export const ROLE_HIERARCHY: Record<UserRole, number> = {
   [UserRole.ADMIN]: 4,
   [UserRole.MANAGER]: 3,
@@ -18,7 +13,6 @@ export const ROLE_HIERARCHY: Record<UserRole, number> = {
   [UserRole.VIEWER]: 1,
 };
 
-// User entity
 export interface User {
   id: string;
   email: string;

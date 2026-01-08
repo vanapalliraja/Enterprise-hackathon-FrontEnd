@@ -71,10 +71,8 @@ const MainLayout = () => {
         </Toolbar>
       </AppBar>
 
-      {/* Sidebar */}
       <Sidebar open={sidebarOpen} width={DRAWER_WIDTH} />
 
-      {/* Main Content */}
       <Box
         component="main"
         sx={{

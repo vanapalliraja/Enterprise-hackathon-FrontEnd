@@ -1,28 +1,25 @@
-// ============================================
-// Material UI Theme Configuration
-// Enterprise IT Service Desk Theme
-// ============================================
+
 
 import { createTheme, ThemeOptions } from '@mui/material/styles';
 
-// Design tokens - single source of truth
+
 const tokens = {
   colors: {
-    // Primary palette - Professional blue
+    
     primary: {
       main: '#1565C0',
       light: '#1976D2',
       dark: '#0D47A1',
       contrastText: '#FFFFFF',
     },
-    // Secondary palette - Slate
+   
     secondary: {
       main: '#455A64',
       light: '#607D8B',
       dark: '#263238',
       contrastText: '#FFFFFF',
     },
-    // Status colors
+    
     success: {
       main: '#2E7D32',
       light: '#4CAF50',
@@ -43,19 +40,19 @@ const tokens = {
       light: '#03A9F4',
       dark: '#01579B',
     },
-    // Background colors
+    
     background: {
       default: '#F5F7FA',
       paper: '#FFFFFF',
       elevated: '#FFFFFF',
     },
-    // Text colors
+    
     text: {
       primary: '#1A1A2E',
       secondary: '#5C6370',
       disabled: '#9CA3AF',
     },
-    // Border colors
+   
     divider: '#E5E7EB',
   },
   typography: {
@@ -72,7 +69,7 @@ const tokens = {
   },
 };
 
-// Light theme configuration
+
 const lightThemeOptions: ThemeOptions = {
   palette: {
     mode: 'light',
@@ -345,7 +342,7 @@ const lightThemeOptions: ThemeOptions = {
   },
 };
 
-// Dark theme configuration
+
 const darkThemeOptions: ThemeOptions = {
   ...lightThemeOptions,
   palette: {
