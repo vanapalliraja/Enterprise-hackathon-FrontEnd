@@ -14,7 +14,7 @@ src/App.tsx
    │  - App Layout
    │  - React Router
    
-src/routes/AppRoutes.tsx
+src
    │
    ── Public Routes
    │     ── pages/Login.tsx
@@ -37,10 +37,8 @@ src/routes/AppRoutes.tsx
         hooks/
             ── useAuth.ts
             ── useForm.ts
-                │
-        services/api.ts
-                │
-           Backend API
+            |
+        User interface
 
  2. State Management Explanation
 State Management Strategy
